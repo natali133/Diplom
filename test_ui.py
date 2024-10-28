@@ -2,7 +2,7 @@ import pytest
 import allure
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from time import sleep
+
 
 
 @pytest.fixture()
@@ -49,3 +49,12 @@ def test_search_by_english_name(chrome_browser):
     chrome_browser.find_element(By.NAME, "kp_query").send_keys("The Green Mile")
     chrome_browser.find_element(By.ID, "suggest-item-film-435").click()
     assert chrome_browser.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "The Green Mile(1999)"
+
+@allure.title("Негативный тест на ввод некорретных данных в поле название фильма ")
+@allure.description("Негативный тест  по поиску  фильма по названию на иностранном языке")
+@allure.severity("критический")
+def test_by_invalid_symbol(chrome_browser):
+    chrome_browser.get("https://www.kinopoisk.ru/")
+    chrome_browser.find_element(By.NAME, "kp_query").send_keys("%")
+    assert chrome_browser.find_element(By.XPATH,
+                                       "//*[contains(@class, 'emptySuggest')]").text == "По вашему запросу ничего не найдено"
