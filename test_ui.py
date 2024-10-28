@@ -20,7 +20,7 @@ def test_by_valid_symbol(chrome_browser):
     chrome_browser.get("https://www.kinopoisk.ru/")
     chrome_browser.find_element(By.NAME, "kp_query").send_keys("1+1")
     chrome_browser.find_element(By.ID,filmid ).click()
-    assert (chrome_browser.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "1+1 (2011)"
+    assert chrome_browser.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "1+1 (2011)"
 
 
 @allure.title("Негативный тест на ввод некорретных данных в поле название фильма ")
@@ -48,7 +48,7 @@ def test_search_by_english_name(chrome_browser):
     chrome_browser.get("https://www.kinopoisk.ru/")
     chrome_browser.find_element(By.NAME, "kp_query").send_keys("The Green Mile")
     chrome_browser.find_element(By.ID, "suggest-item-film-435").click()
-    assert chrome_browser.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "The Green Mile(1999)"
+    assert chrome_browser.find_element(By.CSS_SELECTOR, "span[data-tid='75209b22']").text == "Зеленая миля (1999)"
 
 @allure.title("Негативный тест на ввод некорретных данных в поле название фильма ")
 @allure.description("Негативный тест  по поиску  фильма по названию на иностранном языке")
